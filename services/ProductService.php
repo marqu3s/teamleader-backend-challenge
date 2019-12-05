@@ -20,7 +20,7 @@ class ProductService
     /**
      * Return the information for a product.
      *
-     * @param string|integer $id the ID of a product.
+     * @param string $id the ID of a product.
      */
     public static function getProduct($id)
     {

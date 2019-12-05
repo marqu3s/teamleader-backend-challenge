@@ -13,7 +13,8 @@
 
 /**
  * DataHelper
- * Utility functions.
+ * Data utility functions. This class loads data from the JSON files
+ * and also apply standardization in the properties names.
  */
 class DataHelper
 {
