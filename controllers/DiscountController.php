@@ -59,6 +59,10 @@ class DiscountController extends Controller
         $order = DataHelper::adjustAttributeNamesAndValues($order);
 
         // Instantiate a new Order model with the values received in the request.
+        // Since models extends yii\base\BaseObject, we can pass object configuration
+        // as an array, where the array keys are the object properties and
+        // the array values are the values that must be assigned to the property.
+        // @see https://www.yiiframework.com/doc/api/2.0/yii-base-baseobject
         $orderModel = new Order($order);
 
         // Process the discounts.
