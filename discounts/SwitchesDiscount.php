@@ -9,18 +9,20 @@
 
 namespace api\discounts;
 
-use \api\models\Customer;
-use \api\models\Order;
-use \api\models\Product;
+use api\models\Customer;
+use api\models\Order;
+use api\models\Product;
 
 /**
- * SwitchesDiscount
+ * Class SwitchesDiscount
  * For every product of category "Switches" (id 2),
  * when you buy five, you get a sixth for free.
  *
  * For 5 items, get 1 free
  * For 10 items, get 2 free
  * For 15 ... you got the idea.
+ *
+ * @package api\discounts
  */
 class SwitchesDiscount implements IDiscount
 {

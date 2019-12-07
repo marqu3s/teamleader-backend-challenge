@@ -9,11 +9,14 @@
 
 namespace api\services;
 
-use \api\helpers\DataHelper;
-use \yii\web\NotFoundHttpException;
+use api\helpers\DataHelper;
+use yii\web\NotFoundHttpException;
 
 /**
+ * Class CustomerService
  * This class act as a Customer Service API.
+ *
+ * @package api\services
  */
 class CustomerService
 {
@@ -21,6 +24,9 @@ class CustomerService
      * Return the information for a customer
      *
      * @param string|integer $id the ID of a customer.
+     *
+     * @return mixed
+     * @throws NotFoundHttpException
      */
     public static function getCustomer($id)
     {

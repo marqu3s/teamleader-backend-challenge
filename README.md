@@ -6,17 +6,25 @@
 
 Calculate discounts for orders.
 
-Details can be found here: https://github.com/teamleadercrm/coding-test/blob/master/1-discounts.md
+This service receives an order in JSON format, sent in the request body.
+Then it returns the same information received adding some more information:
+* total-before-discount - The original value received with the order. This is returned for every item in the order and for the order itself.
+* discounts-descriptions - Descriptions of all the discounts there were applied. It is returned empty if no discount was applied.
+
+More details can be found here: https://github.com/teamleadercrm/coding-test/blob/master/1-discounts.md
 
 
 
 ## Development
 
 This service was built using the [Yii Framework 2](https://www.yiiframework.com/) and it uses [Composer](https://getcomposer.org/) to manage its dependencies.
+[Codeception](https://codeception.com/) were used to create some tests.
 
 The following resources/documentation where used during the development:
 * [Using Yii as a Micro-framework](https://www.yiiframework.com/doc/guide/2.0/en/tutorial-yii-as-micro-framework)
 * [Restful Web Services](https://www.yiiframework.com/doc/guide/2.0/en/rest-quick-start)
+* [Yii2 Testing](https://www.yiiframework.com/doc/guide/2.0/en/test-overview)
+* [Codeception Yii2 Module](https://codeception.com/docs/modules/Yii2)
 
 
 
@@ -38,4 +46,23 @@ Start sending requests to the service using a REST client like [Insomnia](https:
 
 ## Available endpoints
 
-* GET /discounts - Receive an order in JSON format in the body of the request and returns the order with the discounts applied. Includes discounts description.
+* GET /discounts/ping - Just to check if the API is up and running.
+* POST /discounts - Receive an order in JSON format in the body of the request and returns the order with the discounts applied. Includes discounts description.
+
+
+
+## Authentication
+
+For simplicity authentication is not needed.
+
+
+
+## Testing
+
+There are some Codeception tests available.
+
+### Acceptance tests
+
+These tests really comunicates with an up and running server. Make sure you had run `./vendor/bin/yii serve` command as explanined above before executing the acceptance tests.
+
+    ./vendor/bin/codecept run acceptance

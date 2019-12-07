@@ -9,14 +9,16 @@
 
 namespace api\discounts;
 
-use \api\models\Customer;
-use \api\models\Order;
-use \api\models\Product;
+use api\models\Customer;
+use api\models\Order;
+use api\models\Product;
 
 /**
- * ToolsDiscount
+ * Class ToolsDiscount
  * If you buy two or more products of category "Tools" (id 1),
  * you get a 20% discount on the cheapest product.
+ *
+ * @package api\discounts
  */
 class ToolsDiscount implements IDiscount
 {
@@ -34,24 +36,23 @@ class ToolsDiscount implements IDiscount
      */
     public function apply(&$order, $customer, $products = null)
     {
-        $activate = false;
-        $cheapestItemIndex = null;
+        $cheapestItemIndex = 0;
+        $itemsInCategory = 0;
 
         // Check each item in the order and their category.
         foreach ($order->items as $i => $item) {
             $product = $products[$item->product_id];
             if ((int)$product->category === self::PRODUCT_CATEGORY_ID) {
-                $activate = true;
-            }
+                $itemsInCategory++;
 
-            if ($cheapestItemIndex === null || $order->items[$cheapestItemIndex]->unit_price > $item->unit_price) {
-                $cheapestItemIndex = $i;
+                if ($order->items[$cheapestItemIndex]->unit_price > $item->unit_price) {
+                    $cheapestItemIndex = $i;
+                }
             }
         }
 
-        // Activate will be true if a product of category_id === 1 was detected in the order.
-        // Also the cheapestItemIndex variable will contain the index of the cheapest item in the order.
-        if ($activate) {
+        // The cheapestItemIndex variable will contain the index of the cheapest item in the order.
+        if ($itemsInCategory >= 2) {
             // Calculate the discount.
             $discount = $order->items[$cheapestItemIndex]->total * self::DISCOUNT_VALUE;
 
@@ -63,7 +64,7 @@ class ToolsDiscount implements IDiscount
 
             // Apply the discount information in the order.
             $order->discounts_descriptions[self::DISCOUNT_CODE] = self::DISCOUNT_DESCRIPTION .
-            " (item {$order->items[$cheapestItemIndex]->product_id} got 20% discount)";
+                " (item {$order->items[$cheapestItemIndex]->product_id} got 20% discount)";
         }
     }
 }

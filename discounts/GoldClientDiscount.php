@@ -9,14 +9,16 @@
 
 namespace api\discounts;
 
-use \api\models\Customer;
-use \api\models\Order;
-use \api\models\Product;
+use api\models\Customer;
+use api\models\Order;
+use api\models\Product;
 
 /**
- * GoldClientDiscount
+ * Class GoldClientDiscount
  * A customer who has already bought for over € 1000,
  * gets a discount of 10% on the whole order.
+ *
+ * @package api\discounts
  */
 class GoldClientDiscount implements IDiscount
 {

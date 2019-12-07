@@ -9,16 +9,20 @@
 
 namespace api\models;
 
-use \api\discounts\GoldClientDiscount;
-use \api\discounts\SwitchesDiscount;
-use \api\discounts\ToolsDiscount;
-use \api\services\CustomerService;
-use \api\services\ProductService;
-use \yii\base\Model;
+use api\discounts\GoldClientDiscount;
+use api\discounts\IDiscount;
+use api\discounts\SwitchesDiscount;
+use api\discounts\ToolsDiscount;
+use api\services\CustomerService;
+use api\services\ProductService;
+use yii\base\Model;
+use yii\web\NotFoundHttpException;
 
 /**
- * Order model.
- * This model represents an order sent with the request.
+ * Class Order
+ * Order model. This model represents an order sent with the request.
+ *
+ * @package api\models
  */
 class Order extends Model
 {
@@ -44,7 +48,7 @@ class Order extends Model
      * This is where the active discounts are defined.
      * To apply a new discount, create a new discount class
      * in the "discounts" folder and add it to the array bellow.
-     * They will applied following the order bellow.
+     * They will be applied following the order bellow.
      */
     private $activeDiscounts = [
         GoldClientDiscount::class,
@@ -69,16 +73,23 @@ class Order extends Model
 
     /**
      * Process the order and apply the applicable discounts.
+     *
+     * @throws NotFoundHttpException
      */
     public function applyDiscounts()
     {
         $customer = $this->getCustomer();
         $products = $this->getProducts();
 
+        // Loop the activeDiscounts array to apply the discounts.
         foreach ($this->activeDiscounts as $discountClassname) {
+            /** @var IDiscount $discount */
             $discount = new $discountClassname;
             $discount->apply($this, $customer, $products);
         }
+
+        // Round total to avoid more than 2 decimal places.
+        $this->total = round($this->total, 2);
     }
 
     /**
@@ -86,6 +97,7 @@ class Order extends Model
      * It consumes the Customer service.
      *
      * @return Customer
+     * @throws NotFoundHttpException
      */
     public function getCustomer()
     {
@@ -99,8 +111,8 @@ class Order extends Model
      * It consumes the Product service.
      *
      * @return Product[]
-     *
-     * @todo Avoid many calls to the service, implement a cache.
+     * @throws NotFoundHttpException
+     * @todo Avoid many calls to the service. Implement a cache maybe?
      */
     public function getProducts()
     {

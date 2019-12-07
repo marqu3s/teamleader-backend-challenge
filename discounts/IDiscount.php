@@ -9,13 +9,15 @@
 
 namespace api\discounts;
 
-use \api\models\Customer;
-use \api\models\Order;
-use \api\models\Product;
+use api\models\Customer;
+use api\models\Order;
+use api\models\Product;
 
 /**
- * Interface IDiscount.
+ * Interface IDiscount
  * All discounts directly modify the Order object.
+ *
+ * @package api\discounts
  */
 interface IDiscount
 {

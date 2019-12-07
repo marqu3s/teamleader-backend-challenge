@@ -9,11 +9,13 @@
 
 namespace api\models;
 
-use \yii\base\Model;
+use yii\base\Model;
 
 /**
- * Product model.
- * This model represents a product.
+ * Class Product
+ * Product model. This model represents a product.
+ *
+ * @package api\models
  */
 class Product extends Model
 {

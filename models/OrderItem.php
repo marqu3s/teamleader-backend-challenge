@@ -9,11 +9,13 @@
 
 namespace api\models;
 
-use \yii\base\Model;
+use yii\base\Model;
 
 /**
- * OrderItem model.
- * This model represents an order item.
+ * Class OrderItem
+ * OrderItem model. This model represents an order item.
+ *
+ * @package api\models
  */
 class OrderItem extends Model
 {
@@ -29,11 +31,11 @@ class OrderItem extends Model
     /** @var float $total */
     public $total;
 
-    /** @var float $total - Holds the total value before applying any discount.*/
+    /** @var float $total - Holds the total value before applying any discount. */
     public $total_before_discount;
 
     /**
-     * Executed everytime a model is created.
+     * Executed every time a model is created.
      */
     public function init()
     {

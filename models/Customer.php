@@ -9,11 +9,13 @@
 
 namespace api\models;
 
-use \yii\base\Model;
+use yii\base\Model;
 
 /**
- * Customer model.
- * This model represents a customer.
+ * Class Customer
+ * Customer model. This model represents a customer associated with an order.
+ *
+ * @package api\models
  */
 class Customer extends Model
 {

@@ -9,16 +9,18 @@
 
 namespace api\controllers;
 
-use \api\helpers\DataHelper;
-use \api\models\Order;
-use \Yii;
-use \yii\rest\Controller;
+use api\helpers\DataHelper;
+use api\models\Order;
+use Yii;
+use yii\rest\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
+ * Class DiscountController
  * DiscountController (use name in singular form).
- * This controllet handles all the DISCOUNT service endpoints.
+ * This controller handles all the DISCOUNT service endpoints.
  *
- * @author João Marques <joao@jjmf.com>
+ * @package api\controllers
  */
 class DiscountController extends Controller
 {
@@ -31,15 +33,22 @@ class DiscountController extends Controller
      */
     public function behaviors()
     {
-        // In this exercice, for simplicity, remove rateLimiter behavior
+        // In this exercise, for simplicity, remove rateLimiter behavior
         // which requires an authenticated user to work.
         $behaviors = parent::behaviors();
         unset($behaviors['rateLimiter']);
+
         return $behaviors;
     }
 
     /**
      * Default controller action.
+     * This the action that get an order in the request body and apply any
+     * available discount, according to the items in the order and the
+     * customer.
+     *
+     * @return string The orderModel in JSON format.
+     * @throws NotFoundHttpException
      */
     public function actionIndex()
     {
@@ -55,6 +64,16 @@ class DiscountController extends Controller
         // Process the discounts.
         $orderModel->applyDiscounts();
 
-        return $orderModel;
+        return DataHelper::adjustAttributeNamesAndValues($orderModel->toArray(), true);
+    }
+
+    /**
+     * Just a simple action to check if the API is running.
+     *
+     * @return string in JSON format
+     */
+    public function actionPing()
+    {
+        return ['response' => 'pong'];
     }
 }
