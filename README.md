@@ -8,8 +8,8 @@ Calculate discounts for orders.
 
 This service receives an order in JSON format, sent in the request body.
 Then it returns the same information received adding some more information:
-* total-before-discount - The original value received with the order. This is returned for every item in the order and for the order itself.
-* discounts-descriptions - Descriptions of all the discounts there were applied. It is returned empty if no discount was applied.
+* `total-before-discount` - The original value of `total` attribute received within the order. This is returned for every item in the order and for the order itself.
+* `discounts-descriptions` - Descriptions of all the discounts there were applied. It is returned empty if no discount was applied.
 
 More details can be found here: https://github.com/teamleadercrm/coding-test/blob/master/1-discounts.md
 
@@ -17,7 +17,7 @@ More details can be found here: https://github.com/teamleadercrm/coding-test/blo
 
 ## Development
 
-This service was built using the [Yii Framework 2](https://www.yiiframework.com/) and it uses [Composer](https://getcomposer.org/) to manage its dependencies.
+This service was built using the [Yii Framework 2](https://www.yiiframework.com/) and it uses [Composer](https://getcomposer.org/) to manage its dependencies. Yii is a MVC framework.
 [Codeception](https://codeception.com/) were used to create some tests.
 
 The following resources/documentation where used during the development:
@@ -26,6 +26,20 @@ The following resources/documentation where used during the development:
 * [Yii2 Testing](https://www.yiiframework.com/doc/guide/2.0/en/test-overview)
 * [Codeception Yii2 Module](https://codeception.com/docs/modules/Yii2)
 
+### Folder Structure
+```
+root
+├── config      <-- application configuration files
+├── controllers <-- application controllers
+├── data        <-- sample data for custormers, products and orders
+├── discounts   <-- discounts logic
+├── helpers     <-- helper/utility classes
+├── models      <-- application models
+├── services    <-- components to simulate other services
+├── tests       <-- tests
+├── vendor      <-- 3rd party packages managed by composer
+├── web         <-- application entry scripts
+```
 
 
 ## Instructions to run this service
@@ -46,7 +60,7 @@ Start sending requests to the service using a REST client like [Insomnia](https:
 
 ## Available endpoints
 
-* GET /discounts/ping - Just to check if the API is up and running.
+* GET /discounts/ping - Check if this service is up and running.
 * POST /discounts - Receive an order in JSON format in the body of the request and returns the order with the discounts applied. Includes discounts description.
 
 
