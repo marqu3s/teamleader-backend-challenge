@@ -84,7 +84,8 @@ Start sending requests to the service using a REST client like [Insomnia](https:
 
 ## Authentication
 
-For simplicity authentication is not needed.
+For simplicity authentication is not needed. It can be easily done by following the
+[Authentication Documentation](https://www.yiiframework.com/doc/guide/2.0/en/rest-authentication).
 
 
 
