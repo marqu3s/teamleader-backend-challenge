@@ -41,6 +41,7 @@ class OrderItem extends Model
     {
         parent::init();
 
+        // new attribute to store the original value of total attribute.
         $this->total_before_discount = $this->total;
     }
 }

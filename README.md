@@ -41,6 +41,23 @@ root
 ├── web         <-- application entry scripts
 ```
 
+### How to add a new discount
+
+Create a new class inside the `discounts` folder. This class must implement IDiscount interface
+and a public method called `apply`. This method is were you must define the discount application
+logic and make adjustments to the order model.
+
+This method receives the following arguments:
+
+* &$order - an [Order](models/Order.php) model with all the order information.
+* $customer - a [Customer](models/Customer.php) model with information about the customer placing the order.
+* $products - an array of [Product](models/Product.php) models representing the products in the order.
+
+**Warning: All discounts directly modify the Order object.**
+
+Then edit the Order model and add the new discount to the `activeDiscounts` property
+in the order you want it to be applied.
+
 
 ## Instructions to run this service
 

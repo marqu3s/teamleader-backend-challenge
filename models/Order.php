@@ -68,6 +68,7 @@ class Order extends Model
             $this->items[$i] = new OrderItem($orderItem);
         }
 
+        // new attribute to store the original value of total attribute.
         $this->total_before_discount = $this->total;
     }
 
